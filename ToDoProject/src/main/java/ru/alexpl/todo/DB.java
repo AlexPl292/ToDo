@@ -29,13 +29,13 @@ public class DB {
 
 	//------------ query for create main table -----------
 	public final String DB_MAIN_CREATE = "CREATE TABLE " +
-			                                MAIN_TABLE + "(" +
-			                                MAIN_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-			                                MAIN_COLUMN_TODO + " TEXT NOT NULL, " +
-			                                MAIN_COLUMN_IMP + " INTEGER(1), " +
-			                                MAIN_COLUMN_FOLDER + " INTEGER(2) " +
-			                                //MAIN_COLUMN_DATE + " DATETIME"+
-			                                ");";
+			MAIN_TABLE + "(" +
+			MAIN_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			MAIN_COLUMN_TODO + " TEXT NOT NULL, " +
+			MAIN_COLUMN_IMP + " INTEGER(1), " +
+			MAIN_COLUMN_FOLDER + " INTEGER(2) " +
+			//MAIN_COLUMN_DATE + " DATETIME"+
+			");";
 
 	//---------------------- Folders table -------------------------
 	public final String FOLDERS_TABLE = "myFolder"; // it's for FOLDERS_TABLE
@@ -44,15 +44,14 @@ public class DB {
 
 	//------------ query for create folders table -----------
 	private final String DB_FOLDERS_CREATE = "CREATE TABLE " +
-													FOLDERS_TABLE + "(" +
-													FOLDERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-													FOLDERS_COLUMN_NAME_OF_FOLDER + " TEXT NOT NULL " +
-													");";
+			FOLDERS_TABLE + "(" +
+			FOLDERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			FOLDERS_COLUMN_NAME_OF_FOLDER + " TEXT NOT NULL " +
+			");";
 	private final String DB_FOLDERS_DEFAULT = "INSERT INTO " +
-													FOLDERS_TABLE + " (" +
-													FOLDERS_COLUMN_NAME_OF_FOLDER + ")" +
-													" VALUES ('inbox'),('Home'),('Work');";
-
+			FOLDERS_TABLE + " (" +
+			FOLDERS_COLUMN_NAME_OF_FOLDER + ")" +
+			" VALUES ('inbox'),('Home'),('Work');";
 	private DBHelper mDBHelper;
 	private SQLiteDatabase mDB;
 
@@ -62,7 +61,7 @@ public class DB {
 
 
 	public void open() {
-		if (mDB != null){
+		if (mDB != null) {
 			Log.d(LOG_TAG, "DB is already open");
 			return;
 		}
@@ -73,7 +72,7 @@ public class DB {
 	}
 
 	public void close() {
-		if (mDB!= null) mDB = null;
+		if (mDB != null) mDB = null;
 		if (mDBHelper != null) mDBHelper.close();
 		Log.d(LOG_TAG, "DB close");
 	}
@@ -88,12 +87,12 @@ public class DB {
 			return null;
 		}
 
-		if (name == null){
+		if (name == null) {
 			return null;
 		}
 
 		if (!name.equals(MAIN_TABLE) && !name.equals(FOLDERS_TABLE)) {
-			Log.e(LOG_TAG, "Database with name '"+name+"' is not exist");
+			Log.e(LOG_TAG, "Database with name '" + name + "' is not exist");
 			return null;
 		}
 		Cursor c = mDB.query(name, null, null, null, null, null, null);
@@ -113,11 +112,11 @@ public class DB {
 		}
 
 		String SQLQuery = "select TODO." + MAIN_COLUMN_ID + ", TODO." + MAIN_COLUMN_IMP + "," +
-				             " TODO." + MAIN_COLUMN_TODO + "," +
-				             " FOLDER." + FOLDERS_COLUMN_NAME_OF_FOLDER +
-				             " from " + MAIN_TABLE + " as TODO" +
-				             " inner join " + FOLDERS_TABLE + " as FOLDER" +
-				             " on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER.id";
+				" TODO." + MAIN_COLUMN_TODO + "," +
+				" FOLDER." + FOLDERS_COLUMN_NAME_OF_FOLDER +
+				" from " + MAIN_TABLE + " as TODO" +
+				" inner join " + FOLDERS_TABLE + " as FOLDER" +
+				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER.id";
 
 		return mDB.rawQuery(SQLQuery, null);
 	}
@@ -185,7 +184,7 @@ public class DB {
 		}
 
 		String name_columns = "count";
-		String columns[] = new String[]{"count(*) as "+name_columns};
+		String columns[] = new String[]{"count(*) as " + name_columns};
 		Cursor c = mDB.query(name, columns, null, null, null, null, null);
 		int count = 0;
 		if (c != null) {
@@ -212,7 +211,7 @@ public class DB {
 		return del_count;
 	}
 
-	public void addDefaultFolders(){
+	public void addDefaultFolders() {
 
 		if (mDB == null) {
 			Log.e(LOG_TAG, "Database is not open");
@@ -228,7 +227,7 @@ public class DB {
 		}
 	}
 
-	public boolean isEmpty(String nameOfTable){
+	public boolean isEmpty(String nameOfTable) {
 		return getCountOfEntries(nameOfTable) == 0;
 	}
 
