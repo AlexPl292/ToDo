@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/backg"
+	>
+
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/card">
+
+		<ImageView
+			android:id="@+id/IVRotator"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_find_previous_holo_light"
+			android:layout_gravity="right|center_vertical"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"/>
+
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/ETTextInput"
+			android:singleLine="true"
+			android:inputType="text"
+			android:layout_alignTop="@+id/IVAdd"
+			android:layout_toLeftOf="@+id/IVAdd"/>
+
+		<ImageView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_menu_send"
+			android:layout_gravity="right"
+			android:id="@+id/IVAdd"
+			android:layout_below="@+id/IVRotator"
+			android:layout_alignParentRight="true"/>
+	</RelativeLayout>
+
+	<LinearLayout
+		android:id="@+id/LLSpinners"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_margin="@dimen/margin_edit"
+		android:background="@color/card">
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/folderSpinner"/>
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/impSpinner"/>
+
+
+	</LinearLayout>
+
+	<fragment
+		android:id="@+id/fragmentList"
+		android:animateLayoutChanges="true"
+		android:name="ru.alexpl.todo.MainList"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:layout="@layout/simple_list_item_1"/>
+
+</LinearLayout>

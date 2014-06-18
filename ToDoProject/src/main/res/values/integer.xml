@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<integer name="rotate_time">500</integer>
+	<integer name="rotate__half_time">250</integer>
+
+	<integer name="importance_0">0</integer>
+	<integer name="importance_1">1</integer>
+	<integer name="importance_2">2</integer>
+
+	<integer name="count_of_imp">3</integer>
+
+</resources>
