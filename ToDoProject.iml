@@ -1,16 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$/ToDoProject" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="ToDo" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":ToDoProject" />
+      </configuration>
+    </facet>
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugJava" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugTest" />
+        <option name="SOURCE_GEN_TASK_NAME" value="generateDebugSources" />
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/ToDoProject/src/main/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
+    <output url="file://$MODULE_DIR$/ToDoProject/build/classes/debug" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/build" />
+    <content url="file://$MODULE_DIR$/ToDoProject">
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/r/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/aidl/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/buildConfig/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/rs/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/res/rs/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/r/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/aidl/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/buildConfig/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/source/rs/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/build/res/rs/test/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/debug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/assets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/assets" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/ToDoProject/src/instrumentTest/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/apk" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/dependency-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/incremental" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/res" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/ToDoProject/build/tmp" />
     </content>
-    <orderEntry type="library" name="robolectric-2.3-jar-with-dependencies" level="project" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 18 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="espresso-1.1-bundled" level="project" />
   </component>
 </module>
 
