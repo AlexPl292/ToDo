@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DB {
 
@@ -19,17 +22,21 @@ public class DB {
 	public final String DB_NAME = "myProjectDB";
 	public final int DB_VERSION = 1;
 
+	public final List<String> TABLES = new ArrayList<String>() {{
+		add("myTable");
+		add("myFolder");
+	}}; // all existing tables
+
 	//------------ Main Table ----------------
-	public final String MAIN_TABLE = "myTable";
 	public final String MAIN_COLUMN_ID = "_id";
 	public final String MAIN_COLUMN_TODO = "todo";
 	public final String MAIN_COLUMN_IMP = "importance";
-	public final String MAIN_COLUMN_FOLDER = "folderIn"; // TODO remake!
+	public final String MAIN_COLUMN_FOLDER = "folderIn";
 	//public final String MAIN_COLUMN_DATE = "date";
 
 	//------------ query for create main table -----------
 	public final String DB_MAIN_CREATE = "CREATE TABLE " +
-			MAIN_TABLE + "(" +
+			TABLES.get(0) + "(" +
 			MAIN_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			MAIN_COLUMN_TODO + " TEXT NOT NULL, " +
 			MAIN_COLUMN_IMP + " INTEGER(1), " +
@@ -38,20 +45,20 @@ public class DB {
 			");";
 
 	//---------------------- Folders table -------------------------
-	public final String FOLDERS_TABLE = "myFolder"; // it's for FOLDERS_TABLE
-	public final String FOLDERS_COLUMN_ID = "id";
+	public final String FOLDERS_COLUMN_ID = "_id";
 	public final String FOLDERS_COLUMN_NAME_OF_FOLDER = "folderOut";
 
 	//------------ query for create folders table -----------
 	private final String DB_FOLDERS_CREATE = "CREATE TABLE " +
-			FOLDERS_TABLE + "(" +
+			TABLES.get(1) + "(" +
 			FOLDERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			FOLDERS_COLUMN_NAME_OF_FOLDER + " TEXT NOT NULL " +
 			");";
-	private final String DB_FOLDERS_DEFAULT = "INSERT INTO " +
-			FOLDERS_TABLE + " (" +
+	private final String DB_FOLDERS_DEFAULT = "INSERT INTO " +  // default folders
+			TABLES.get(1) + " (" +
 			FOLDERS_COLUMN_NAME_OF_FOLDER + ")" +
 			" VALUES ('inbox'),('Home'),('Work');";
+
 	private DBHelper mDBHelper;
 	private SQLiteDatabase mDB;
 
@@ -71,10 +78,36 @@ public class DB {
 		Log.d(LOG_TAG, "DB open");
 	}
 
+	private boolean isDBOpen() {
+		if (mDB == null) {
+			Log.e(LOG_TAG, "Database is not open");
+			return false;
+		}
+		return true;
+	}
+
 	public void close() {
 		if (mDB != null) mDB = null;
 		if (mDBHelper != null) mDBHelper.close();
 		Log.d(LOG_TAG, "DB close");
+	}
+
+	public void createTestTable() {
+		open();
+		String query = "CREATE TABLE test (row1 int, row2 int);";
+		mDB.execSQL(query);
+		TABLES.add("test");
+		Log.d("aDebug", "Test table created");
+		close();
+	}
+
+	public void dropTestTable() {
+		open();
+		String query = "DROP TABLE test";
+		mDB.execSQL(query);
+		TABLES.remove("test");
+		Log.d("aDebug", "Test table dropped");
+		close();
 	}
 
 	/**
@@ -82,19 +115,8 @@ public class DB {
 	 */
 	public Cursor getAllDataFrom(String name) {
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return null;
-		}
+		if (!isTableExist(name) || !isDBOpen() || name == null) return null;
 
-		if (name == null) {
-			return null;
-		}
-
-		if (!name.equals(MAIN_TABLE) && !name.equals(FOLDERS_TABLE)) {
-			Log.e(LOG_TAG, "Database with name '" + name + "' is not exist");
-			return null;
-		}
 		Cursor c = mDB.query(name, null, null, null, null, null, null);
 		Log.d(LOG_TAG, "getAllDataFrom: " + name);
 		return c;
@@ -104,55 +126,35 @@ public class DB {
 	/**
 	 * @return cursor with all data folder_table inner MAIN_TABLE
 	 */
-	public Cursor getAllData() {
+	public Cursor getAllDataAboutTodo() {
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return null;
-		}
+		if (!isDBOpen()) return null;
 
 		String SQLQuery = "select TODO." + MAIN_COLUMN_ID + ", TODO." + MAIN_COLUMN_IMP + "," +
 				" TODO." + MAIN_COLUMN_TODO + "," +
 				" FOLDER." + FOLDERS_COLUMN_NAME_OF_FOLDER +
-				" from " + MAIN_TABLE + " as TODO" +
-				" inner join " + FOLDERS_TABLE + " as FOLDER" +
-				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER.id";
+				" from " + TABLES.get(0) + " as TODO" +
+				" inner join " + TABLES.get(1) + " as FOLDER" +
+				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER." + FOLDERS_COLUMN_ID;
 
 		return mDB.rawQuery(SQLQuery, null);
 	}
 
 	public boolean delDataFrom(int id, String name) {   //TODO set del id if it is the last item of list
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return false;
-		}
+		if (!isTableExist(name) || !isDBOpen()) return false;
 
-		if (name.equals(MAIN_TABLE)) {
-			mDB.delete(MAIN_TABLE, MAIN_COLUMN_ID + "=" + Integer.toString(id), null);
-			Log.e(LOG_TAG, "Deleted from " + MAIN_TABLE + " id= " + id);
-			return true;
-		} else if (name.equals(FOLDERS_TABLE)) {
-			mDB.delete(FOLDERS_TABLE, FOLDERS_COLUMN_ID + "=" + Integer.toString(id), null);
-			Log.e(LOG_TAG, "Deleted from " + FOLDERS_TABLE + " id= " + id);
-			return true;
-		}
-		return false;
+		mDB.delete(name, "_id =" + Integer.toString(id), null);
+		Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
+
+		return true;
 	}
 
-	public boolean addDataIn(Bundle dataForDB, String name) {
+	public boolean addDataIn(Bundle dataForDB, String name) { //TODO next step
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return false;
-		}
+		if (!isTableExist(name) || !isDBOpen() || dataForDB == null || name == null) return false;
 
-		if (!name.equals(MAIN_TABLE) && !name.equals(FOLDERS_TABLE)) {
-			Log.e(LOG_TAG, "Database is not exist");
-			return false;
-		}
-
-		if (name.equals(MAIN_TABLE)) {
+		if (name.equals(TABLES.get(0))) {
 			String txt = dataForDB.getString(MAIN_COLUMN_TODO);
 			int imp = dataForDB.getInt(MAIN_COLUMN_IMP);
 			int folder = dataForDB.getInt(MAIN_COLUMN_FOLDER, 1);
@@ -161,27 +163,23 @@ public class DB {
 			cv.put(MAIN_COLUMN_TODO, txt);
 			cv.put(MAIN_COLUMN_IMP, imp);
 			cv.put(MAIN_COLUMN_FOLDER, folder);
-			mDB.insert(MAIN_TABLE, null, cv);
+			mDB.insert(TABLES.get(0), null, cv);
 			return true;
-		} else if (name.equals(FOLDERS_TABLE)) {
-
+		} else if (name.equals(TABLES.get(1))) {
 			String text = dataForDB.getString(FOLDERS_COLUMN_NAME_OF_FOLDER);
+
 			ContentValues cv = new ContentValues();
 			cv.put(FOLDERS_COLUMN_NAME_OF_FOLDER, text);
-			mDB.insert(FOLDERS_TABLE, null, cv);
+			mDB.insert(TABLES.get(1), null, cv);
 			return true;
 		}
-
 
 		return false;
 	}
 
 	public int getCountOfEntries(String name) {  //TODO it's error, if count == 0!!!
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return -1;
-		}
+		if (!isDBOpen() || name == null) return -1;
 
 		String name_columns = "count";
 		String columns[] = new String[]{"count(*) as " + name_columns};
@@ -199,36 +197,27 @@ public class DB {
 
 	public int clearTable(String name) {
 
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return -1;
-		}
+		if (!isDBOpen() || name == null) return -1;
 
-		int del_count = mDB.delete(name, null, null);
-		mDB.delete("SQLite_sequence", "name = '" + name + "'", null);  //delete id
+		int del_count = mDB.delete(name, null, null);  //clear table
+		mDB.delete("SQLite_sequence", "name = '" + name + "'", null);  //delete ids
 		Log.d(LOG_TAG, "DB clear: " + name);
 
 		return del_count;
 	}
 
-	public void addDefaultFolders() {
-
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return;
-		}
-
-		String folders[] = {"inbox", "Home", "Work"};
-		Bundle data = new Bundle();
-
-		for (String folder : folders) {
-			data.putString(FOLDERS_COLUMN_NAME_OF_FOLDER, folder);
-			addDataIn(data, FOLDERS_TABLE);
-		}
+	public boolean isEmpty(String nameOfTable) {
+		int count = getCountOfEntries(nameOfTable);
+		if (count == -1) Log.e(LOG_TAG, "Problem with '" + nameOfTable + "' in 'isEmpty(..)");
+		return count == 0;
 	}
 
-	public boolean isEmpty(String nameOfTable) {
-		return getCountOfEntries(nameOfTable) == 0;
+	private boolean isTableExist(String name) {
+		for (String tb : TABLES) {
+			if (name == tb) return true;
+		}
+		Log.e(LOG_TAG, "Database with name '" + name + "' is not exist");
+		return false;
 	}
 
 	/**
@@ -245,7 +234,6 @@ public class DB {
 			db.execSQL(DB_MAIN_CREATE);
 			db.execSQL(DB_FOLDERS_CREATE);
 			db.execSQL(DB_FOLDERS_DEFAULT);
-			//db.insert(FOLDERS_TABLE, )
 			Log.d(LOG_TAG, "DB created");
 		}
 

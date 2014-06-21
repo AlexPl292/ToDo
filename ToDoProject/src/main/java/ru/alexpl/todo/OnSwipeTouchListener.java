@@ -83,8 +83,6 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
 					return false;
 				}
 
-				// TODO: ensure this is a finger, and set a flag
-
 				// Find the child view that was touched (perform a hit t/est)
 				Rect rect = new Rect();
 				int childCount = mListView.getChildCount();
@@ -135,7 +133,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
 					dismiss = true;
 					dismissRight = deltaX > 0;
 				} else if (mMinFlingVelocity <= absVelocityX && absVelocityX <= mMaxFlingVelocity
-						           && absVelocityY < absVelocityX) {
+						&& absVelocityY < absVelocityX) {
 					// dismiss only if flinging in the same direction as dragging
 					dismiss = (velocityX < 0) == (deltaX < 0);
 					dismissRight = mVelocityTracker.getXVelocity() > 0;
@@ -187,8 +185,8 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
 					MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
 					assert cancelEvent != null;
 					cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
-							                      (motionEvent.getActionIndex()
-									                       << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
+							(motionEvent.getActionIndex()
+									<< MotionEvent.ACTION_POINTER_INDEX_SHIFT));
 					mListView.onTouchEvent(cancelEvent);
 					cancelEvent.recycle();
 				}
@@ -197,7 +195,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
 					//mDownView.setTranslationX(deltaX);
 					mDownView.setX(deltaX);
 					mDownView.setAlpha(Math.max(0f, Math.min(1f,
-							                                        1f - (2f * Math.abs(deltaX) / mViewWidth))));
+							1f - (2f * Math.abs(deltaX) / mViewWidth))));
 					return true;
 				}
 				break;

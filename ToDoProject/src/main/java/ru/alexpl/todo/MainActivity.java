@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import org.apache.http.impl.conn.LoggingSessionInputBuffer;
 
 public class MainActivity extends Activity {
 
@@ -22,6 +21,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 		db = new DB(this);
 
+		db.dropTestTable();
+
+
 		fragmentList = (MainList) getFragmentManager()
 				                          .findFragmentById(R.id.fragmentList);
 		if (fragmentList != null) {
@@ -37,18 +39,9 @@ public class MainActivity extends Activity {
 
 	public void showAllData(){
 		db.open();
-
-		String folders[] = {"inbox", "Home", "Work"};  //TODO this code added folders. Make so, dass alles okay ware.
-		Bundle data = new Bundle();
-
-		for (String folder : folders) {
-			data.putString(db.FOLDERS_COLUMN_NAME_OF_FOLDER, folder);
-			db.addDataIn(data, db.FOLDERS_TABLE);
-		}
-
-		logCursor(db.getAllDataFrom(db.MAIN_TABLE));
+		logCursor(db.getAllDataFrom(db.TABLES.get(0)));  //TODO remake for all tables
 		Log.d(LOG_TAG, "-------------------------------------");
-		logCursor(db.getAllDataFrom(db.FOLDERS_TABLE));
+		logCursor(db.getAllDataFrom(db.TABLES.get(1)));
 		db.close();
 	}
 
