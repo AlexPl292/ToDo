@@ -1,10 +1,10 @@
 package ru.alexpl.todo;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -121,8 +121,9 @@ public class Editor implements View.OnClickListener {
 		});
 	}
 
-	public Bundle getData() {
+	public ContentValues getData() {
 		String s = editText.getText().toString();
+		if (s.isEmpty()) return null;
 
 		if (!folderSpinner.isShown() && !impSpinner.isShown()) {
 			importanceForDB = 1;
@@ -132,22 +133,20 @@ public class Editor implements View.OnClickListener {
 			impSpinner.setSelection(1);
 		}
 
-		Bundle dataSet = new Bundle();
-		dataSet.putString(db.MAIN_COLUMN_TODO, s);
-		dataSet.putInt(db.MAIN_COLUMN_IMP, importanceForDB);
-		dataSet.putInt(db.MAIN_COLUMN_FOLDER, folderForDB);
+		ContentValues dataSet = new ContentValues();
+		dataSet.put(db.MAIN_COLUMN_TODO, s);
+		dataSet.put(db.MAIN_COLUMN_IMP, importanceForDB);
+		dataSet.put(db.MAIN_COLUMN_FOLDER, folderForDB);
 
-		if (!s.isEmpty()) {
-			editText.setText("");
-			return dataSet;
-		} else return null;
+		editText.setText("");
+		return dataSet;
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.IVRotator:
-				if (!folderSpinner.isShown()) {
+				if (!folderSpinner.isShown()) { //TODO ramake!
 
 					impSpinner.setVisibility(View.VISIBLE);
 					folderSpinner.setVisibility(View.VISIBLE);
@@ -161,7 +160,7 @@ public class Editor implements View.OnClickListener {
 				}
 				break;
 			case R.id.IVAdd:
-				Bundle data = getData();
+				ContentValues data = getData();
 				if (data != null) {
 					db.open();
 					db.addDataIn(data, db.TABLES.get(0));

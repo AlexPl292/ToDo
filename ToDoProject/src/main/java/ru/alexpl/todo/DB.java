@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -94,10 +93,9 @@ public class DB {
 
 	public void createTestTable() {
 		open();
-		String query = "CREATE TABLE test (row1 int, row2 int);";
+		String query = "CREATE TABLE test (_id INTEGER PRIMARY KEY AUTOINCREMENT, row1 int, row2 int);";
 		mDB.execSQL(query);
 		TABLES.add("test");
-		Log.d("aDebug", "Test table created");
 		close();
 	}
 
@@ -106,7 +104,6 @@ public class DB {
 		String query = "DROP TABLE test";
 		mDB.execSQL(query);
 		TABLES.remove("test");
-		Log.d("aDebug", "Test table dropped");
 		close();
 	}
 
@@ -140,41 +137,24 @@ public class DB {
 		return mDB.rawQuery(SQLQuery, null);
 	}
 
-	public boolean delDataFrom(int id, String name) {   //TODO set del id if it is the last item of list
+	public boolean delDataFrom(int id, String name) {
 
-		if (!isTableExist(name) || !isDBOpen()) return false;
+		if (!isTableExist(name) || !isDBOpen() || id < 0) return false;
 
-		mDB.delete(name, "_id =" + Integer.toString(id), null);
-		Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
-
-		return true;
+		Integer del = mDB.delete(name, "_id =" + Integer.toString(id), null);
+		if (del > 0) {
+			Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
+			return true;
+		} else {
+			Log.d(LOG_TAG, "error in deleting");
+			return false;
+		}
 	}
 
-	public boolean addDataIn(Bundle dataForDB, String name) { //TODO next step
+	public long addDataIn(ContentValues dataForDB, String name) {
+		if (!isTableExist(name) || !isDBOpen() || dataForDB == null || name == null) return -1;
 
-		if (!isTableExist(name) || !isDBOpen() || dataForDB == null || name == null) return false;
-
-		if (name.equals(TABLES.get(0))) {
-			String txt = dataForDB.getString(MAIN_COLUMN_TODO);
-			int imp = dataForDB.getInt(MAIN_COLUMN_IMP);
-			int folder = dataForDB.getInt(MAIN_COLUMN_FOLDER, 1);
-
-			ContentValues cv = new ContentValues();
-			cv.put(MAIN_COLUMN_TODO, txt);
-			cv.put(MAIN_COLUMN_IMP, imp);
-			cv.put(MAIN_COLUMN_FOLDER, folder);
-			mDB.insert(TABLES.get(0), null, cv);
-			return true;
-		} else if (name.equals(TABLES.get(1))) {
-			String text = dataForDB.getString(FOLDERS_COLUMN_NAME_OF_FOLDER);
-
-			ContentValues cv = new ContentValues();
-			cv.put(FOLDERS_COLUMN_NAME_OF_FOLDER, text);
-			mDB.insert(TABLES.get(1), null, cv);
-			return true;
-		}
-
-		return false;
+		return mDB.insert(name, null, dataForDB);
 	}
 
 	public int getCountOfEntries(String name) {  //TODO it's error, if count == 0!!!

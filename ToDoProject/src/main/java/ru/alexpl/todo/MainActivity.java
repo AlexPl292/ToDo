@@ -17,15 +17,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(LOG_TAG,"start");
+		Log.d(LOG_TAG, "start");
 		setContentView(R.layout.main);
 		db = new DB(this);
 
-		db.dropTestTable();
-
 
 		fragmentList = (MainList) getFragmentManager()
-				                          .findFragmentById(R.id.fragmentList);
+				.findFragmentById(R.id.fragmentList);
 		if (fragmentList != null) {
 			fragmentList.setDB(db); // TODO remake setDB with setBundle and getBundle
 		}
@@ -37,7 +35,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void showAllData(){
+	public void showAllData() {
 		db.open();
 		logCursor(db.getAllDataFrom(db.TABLES.get(0)));  //TODO remake for all tables
 		Log.d(LOG_TAG, "-------------------------------------");
