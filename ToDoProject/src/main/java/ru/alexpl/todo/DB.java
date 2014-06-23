@@ -21,12 +21,13 @@ public class DB {
 	public final String DB_NAME = "myProjectDB";
 	public final int DB_VERSION = 1;
 
-	public final List<String> TABLES = new ArrayList<String>() {{
-		add("myTable");
-		add("myFolder");
+	private final List<String> TABLES = new ArrayList<String>() {{
+		add(MAIN_TABLE);
+		add(FOLDER_TABLE);
 	}}; // all existing tables
 
 	//------------ Main Table ----------------
+	public final String MAIN_TABLE = "myTable";
 	public final String MAIN_COLUMN_ID = "_id";
 	public final String MAIN_COLUMN_TODO = "todo";
 	public final String MAIN_COLUMN_IMP = "importance";
@@ -35,7 +36,7 @@ public class DB {
 
 	//------------ query for create main table -----------
 	public final String DB_MAIN_CREATE = "CREATE TABLE " +
-			TABLES.get(0) + "(" +
+			MAIN_TABLE + "(" +
 			MAIN_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			MAIN_COLUMN_TODO + " TEXT NOT NULL, " +
 			MAIN_COLUMN_IMP + " INTEGER(1), " +
@@ -44,17 +45,18 @@ public class DB {
 			");";
 
 	//---------------------- Folders table -------------------------
+	public final String FOLDER_TABLE = "myFolder";
 	public final String FOLDERS_COLUMN_ID = "_id";
 	public final String FOLDERS_COLUMN_NAME_OF_FOLDER = "folderOut";
 
 	//------------ query for create folders table -----------
 	private final String DB_FOLDERS_CREATE = "CREATE TABLE " +
-			TABLES.get(1) + "(" +
+			FOLDER_TABLE + "(" +
 			FOLDERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			FOLDERS_COLUMN_NAME_OF_FOLDER + " TEXT NOT NULL " +
 			");";
 	private final String DB_FOLDERS_DEFAULT = "INSERT INTO " +  // default folders
-			TABLES.get(1) + " (" +
+			FOLDER_TABLE + " (" +
 			FOLDERS_COLUMN_NAME_OF_FOLDER + ")" +
 			" VALUES ('inbox'),('Home'),('Work');";
 
@@ -77,7 +79,7 @@ public class DB {
 		Log.d(LOG_TAG, "DB open");
 	}
 
-	private boolean isDBOpen() {
+	public boolean isDBOpen() {
 		if (mDB == null) {
 			Log.e(LOG_TAG, "Database is not open");
 			return false;
@@ -130,8 +132,8 @@ public class DB {
 		String SQLQuery = "select TODO." + MAIN_COLUMN_ID + ", TODO." + MAIN_COLUMN_IMP + "," +
 				" TODO." + MAIN_COLUMN_TODO + "," +
 				" FOLDER." + FOLDERS_COLUMN_NAME_OF_FOLDER +
-				" from " + TABLES.get(0) + " as TODO" +
-				" inner join " + TABLES.get(1) + " as FOLDER" +
+				" from " + MAIN_TABLE + " as TODO" +
+				" inner join " + FOLDER_TABLE + " as FOLDER" +
 				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER." + FOLDERS_COLUMN_ID;
 
 		return mDB.rawQuery(SQLQuery, null);
@@ -177,7 +179,7 @@ public class DB {
 
 	public int clearTable(String name) {
 
-		if (!isDBOpen() || name == null) return -1;
+		if (!isDBOpen() || name == null || !isTableExist(name)) return -1;
 
 		int del_count = mDB.delete(name, null, null);  //clear table
 		mDB.delete("SQLite_sequence", "name = '" + name + "'", null);  //delete ids
@@ -187,6 +189,10 @@ public class DB {
 	}
 
 	public boolean isEmpty(String nameOfTable) {
+		if (nameOfTable == null || !isTableExist(nameOfTable) || !isDBOpen()) {
+			Log.e(LOG_TAG, "Problem in isEmpty(..)");
+			return false;
+		}
 		int count = getCountOfEntries(nameOfTable);
 		if (count == -1) Log.e(LOG_TAG, "Problem with '" + nameOfTable + "' in 'isEmpty(..)");
 		return count == 0;

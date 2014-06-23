@@ -57,8 +57,8 @@ public class Editor implements View.OnClickListener {
 
 		//--------------- making folder spinner---------------------
 		db.open();
-		int countOfMyFolder = db.getCountOfEntries(db.TABLES.get(1));
-		Cursor c = db.getAllDataFrom(db.TABLES.get(1));
+		int countOfMyFolder = db.getCountOfEntries(db.FOLDER_TABLE);
+		Cursor c = db.getAllDataFrom(db.FOLDER_TABLE);
 		String[] dataForSpinner = new String[countOfMyFolder];
 
 		if (c != null) {
@@ -163,7 +163,7 @@ public class Editor implements View.OnClickListener {
 				ContentValues data = getData();
 				if (data != null) {
 					db.open();
-					db.addDataIn(data, db.TABLES.get(0));
+					db.addDataIn(data, db.MAIN_TABLE);
 					assert fragmentList != null;
 						fragmentList.updateList();
 					db.close();

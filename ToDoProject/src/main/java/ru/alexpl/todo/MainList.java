@@ -72,7 +72,7 @@ public class MainList extends ListFragment {
                         @Override
                         public void onDismiss(ListView listView, int[] reverseSortedPositions) {
 	                        for (int position : reverseSortedPositions) {
-		                        mDB.delDataFrom(position, mDB.TABLES.get(0));
+		                        mDB.delDataFrom(position, mDB.MAIN_TABLE);
 	                        }
 	                        updateList();
                         }
@@ -91,7 +91,7 @@ public class MainList extends ListFragment {
 		Cursor data;
 		LayoutInflater lInflater;
 
-		int length = mDB.getCountOfEntries(mDB.TABLES.get(0));
+		int length = mDB.getCountOfEntries(mDB.MAIN_TABLE);
 		String []dataText = new String[length];
 		String []dataFolder = new String[length];
 		int []dataImp = new int[length];

@@ -37,9 +37,9 @@ public class MainActivity extends Activity {
 
 	public void showAllData() {
 		db.open();
-		logCursor(db.getAllDataFrom(db.TABLES.get(0)));  //TODO remake for all tables
+		logCursor(db.getAllDataFrom(db.MAIN_TABLE));  //TODO remake for all tables
 		Log.d(LOG_TAG, "-------------------------------------");
-		logCursor(db.getAllDataFrom(db.TABLES.get(1)));
+		logCursor(db.getAllDataFrom(db.FOLDER_TABLE));
 		db.close();
 	}
 
