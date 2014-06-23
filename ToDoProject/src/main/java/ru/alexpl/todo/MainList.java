@@ -24,14 +24,14 @@ import java.util.Map;
  */
 public class MainList extends ListFragment {
 
-	DB mDB;
-	AdapterForList adapterForList;
-	final String LOG_TAG = "aListLogs";
+	private DB mDB;
+	private AdapterForList adapterForList;
+	private final String LOG_TAG = "aListLogs";
 
-	final String ATTRIBUTE_DATA = "data"; // TODO can i make this a local var?
-	final String ATTRIBUTE_FOLDER = "folder";
-	final String ATTRIBUTE_IMP = "importance";
-	final String ATTRIBUTE_ID = "_id";
+	private final String ATTRIBUTE_DATA = "data";
+	private final String ATTRIBUTE_FOLDER = "folder";
+	private final String ATTRIBUTE_IMP = "importance";
+	private final String ATTRIBUTE_ID = "_id";
 
 
 	public void onActivityCreated (Bundle savedInstanceState){
@@ -91,17 +91,22 @@ public class MainList extends ListFragment {
 		Cursor data;
 		LayoutInflater lInflater;
 
-		int length = mDB.getCountOfEntries(mDB.MAIN_TABLE);
-		String []dataText = new String[length];
-		String []dataFolder = new String[length];
-		int []dataImp = new int[length];
-		int []dataId = new int[length];
+		int length;
+		String[] dataText;
+		String[] dataFolder;
+		int[] dataImp;
+		int[] dataId;
 
 		public AdapterForList (Context context, Cursor dataForAdding){
 			ctx = context;
 			data = dataForAdding;
 			lInflater = (LayoutInflater) ctx
 					   .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			length = mDB.getCountOfEntries(mDB.MAIN_TABLE);
+			dataText = new String[length];
+			dataFolder = new String[length];
+			dataImp = new int[length];
+			dataId = new int[length];
 
 			if(data!=null){
 				int k=-1;
@@ -117,7 +122,8 @@ public class MainList extends ListFragment {
 
 		@Override
 		public int getCount() {
-			return data.getCount();
+			if (data != null) return data.getCount();
+			return -1;
 		}
 
 		@Override
@@ -142,14 +148,12 @@ public class MainList extends ListFragment {
 
 		@Override
 		public View getView(int i, View convertView, ViewGroup viewGroup) {
-
 			View view = convertView;
 
-			if (view == null) {
+			if (view == null)
 				view = lInflater.inflate(R.layout.list, viewGroup, false);
-			}
 
-			 int imageId;
+			int imageId;
 
 			switch (dataImp[i]){
 				case 0:
@@ -173,8 +177,8 @@ public class MainList extends ListFragment {
 
 
 			ImageView editorImage = (ImageView) view.findViewById(R.id.IVEditor);
-			editorImage.setScaleY((float) 0.5);
-			editorImage.setScaleX((float) 0.5);
+			editorImage.setScaleY(0.5f);
+			editorImage.setScaleX(0.5f);
 			editorImage.setImageResource(imageId);
 
 			view.setTag(dataId[i]);

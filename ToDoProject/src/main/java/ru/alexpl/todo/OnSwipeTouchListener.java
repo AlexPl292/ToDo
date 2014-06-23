@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.*;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -243,7 +242,6 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
 
 						dismissPositions[i] = Integer.parseInt(id.toString());
 					}
-					Log.d("aDebug", "test4");
 					mCallbacks.onDismiss(mListView, dismissPositions);
 
 					ViewGroup.LayoutParams lp;

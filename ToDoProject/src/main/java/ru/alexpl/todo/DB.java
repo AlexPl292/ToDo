@@ -21,7 +21,7 @@ public class DB {
 	public final String DB_NAME = "myProjectDB";
 	public final int DB_VERSION = 1;
 
-	private final List<String> TABLES = new ArrayList<String>() {{
+	public final List<String> TABLES = new ArrayList<String>() {{
 		add(MAIN_TABLE);
 		add(FOLDER_TABLE);
 	}}; // all existing tables
@@ -79,14 +79,6 @@ public class DB {
 		Log.d(LOG_TAG, "DB open");
 	}
 
-	public boolean isDBOpen() {
-		if (mDB == null) {
-			Log.e(LOG_TAG, "Database is not open");
-			return false;
-		}
-		return true;
-	}
-
 	public void close() {
 		if (mDB != null) mDB = null;
 		if (mDBHelper != null) mDBHelper.close();
@@ -114,10 +106,12 @@ public class DB {
 	 */
 	public Cursor getAllDataFrom(String name) {
 
-		if (!isTableExist(name) || !isDBOpen() || name == null) return null;
+		if (!isTableExist(name) || name == null) return null;
+		open();
 
 		Cursor c = mDB.query(name, null, null, null, null, null, null);
 		Log.d(LOG_TAG, "getAllDataFrom: " + name);
+
 		return c;
 	}
 
@@ -126,9 +120,6 @@ public class DB {
 	 * @return cursor with all data folder_table inner MAIN_TABLE
 	 */
 	public Cursor getAllDataAboutTodo() {
-
-		if (!isDBOpen()) return null;
-
 		String SQLQuery = "select TODO." + MAIN_COLUMN_ID + ", TODO." + MAIN_COLUMN_IMP + "," +
 				" TODO." + MAIN_COLUMN_TODO + "," +
 				" FOLDER." + FOLDERS_COLUMN_NAME_OF_FOLDER +
@@ -136,14 +127,18 @@ public class DB {
 				" inner join " + FOLDER_TABLE + " as FOLDER" +
 				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER." + FOLDERS_COLUMN_ID;
 
+		open();
+
 		return mDB.rawQuery(SQLQuery, null);
 	}
 
 	public boolean delDataFrom(int id, String name) {
 
-		if (!isTableExist(name) || !isDBOpen() || id < 0) return false;
+		if (!isTableExist(name) || id < 0) return false;
 
+		open();
 		Integer del = mDB.delete(name, "_id =" + Integer.toString(id), null);
+		close();
 		if (del > 0) {
 			Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
 			return true;
@@ -154,14 +149,16 @@ public class DB {
 	}
 
 	public long addDataIn(ContentValues dataForDB, String name) {
-		if (!isTableExist(name) || !isDBOpen() || dataForDB == null || name == null) return -1;
-
-		return mDB.insert(name, null, dataForDB);
+		if (!isTableExist(name) || dataForDB == null || name == null) return -1;
+		open();
+		long insert = mDB.insert(name, null, dataForDB);
+		close();
+		return insert;
 	}
 
-	public int getCountOfEntries(String name) {  //TODO it's error, if count == 0!!!
-
-		if (!isDBOpen() || name == null) return -1;
+	public int getCountOfEntries(String name) {
+		open();
+		if (name == null) return -1;
 
 		String name_columns = "count";
 		String columns[] = new String[]{"count(*) as " + name_columns};
@@ -172,29 +169,33 @@ public class DB {
 				count = c.getInt(c.getColumnIndex(name_columns));
 			}
 		}
-
+		close();
 		return count;
 	}
 
 
 	public int clearTable(String name) {
 
-		if (!isDBOpen() || name == null || !isTableExist(name)) return -1;
+		if (name == null || !isTableExist(name)) return -1;
+		open();
 
 		int del_count = mDB.delete(name, null, null);  //clear table
 		mDB.delete("SQLite_sequence", "name = '" + name + "'", null);  //delete ids
 		Log.d(LOG_TAG, "DB clear: " + name);
 
+		close();
 		return del_count;
 	}
 
 	public boolean isEmpty(String nameOfTable) {
-		if (nameOfTable == null || !isTableExist(nameOfTable) || !isDBOpen()) {
+		if (nameOfTable == null || !isTableExist(nameOfTable)) {
 			Log.e(LOG_TAG, "Problem in isEmpty(..)");
 			return false;
 		}
+		open();
 		int count = getCountOfEntries(nameOfTable);
 		if (count == -1) Log.e(LOG_TAG, "Problem with '" + nameOfTable + "' in 'isEmpty(..)");
+		close();
 		return count == 0;
 	}
 

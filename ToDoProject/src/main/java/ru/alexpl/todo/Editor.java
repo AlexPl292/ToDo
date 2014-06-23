@@ -22,6 +22,8 @@ public class Editor implements View.OnClickListener {
 	ImageView rotator;
 	ImageView adder;
 	MainList fragmentList;
+	private final int importanceDefault = 1;
+	private final int folderDefault = 0;
 
 	public Editor(Context ctx, DB database) {
 		db = database;
@@ -46,8 +48,8 @@ public class Editor implements View.OnClickListener {
 
 	public void makingEditor() {
 
-		folderForDB = 1;
-		importanceForDB = 1;  // Настройки по умолчанию
+		folderForDB = folderDefault + 1;
+		importanceForDB = importanceDefault;  // Настройки по умолчанию
 
 		//--------------------------------- rotate and adder buttons ------------------
 
@@ -56,7 +58,6 @@ public class Editor implements View.OnClickListener {
 
 
 		//--------------- making folder spinner---------------------
-		db.open();
 		int countOfMyFolder = db.getCountOfEntries(db.FOLDER_TABLE);
 		Cursor c = db.getAllDataFrom(db.FOLDER_TABLE);
 		String[] dataForSpinner = new String[countOfMyFolder];
@@ -89,7 +90,7 @@ public class Editor implements View.OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> adapterView) {
-				folderForDB = 1;
+				folderForDB = folderDefault + 1;
 			}
 		}
 		);
@@ -116,7 +117,7 @@ public class Editor implements View.OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> adapterView) {
-				importanceForDB = 1;
+				importanceForDB = importanceDefault;
 			}
 		});
 	}
@@ -126,11 +127,11 @@ public class Editor implements View.OnClickListener {
 		if (s.isEmpty()) return null;
 
 		if (!folderSpinner.isShown() && !impSpinner.isShown()) {
-			importanceForDB = 1;
-			folderForDB = 1;
+			importanceForDB = importanceDefault;
+			folderForDB = folderDefault + 1;
 		} else {
-			folderSpinner.setSelection(0);
-			impSpinner.setSelection(1);
+			folderSpinner.setSelection(folderDefault);
+			impSpinner.setSelection(importanceDefault);
 		}
 
 		ContentValues dataSet = new ContentValues();
@@ -146,8 +147,7 @@ public class Editor implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.IVRotator:
-				if (!folderSpinner.isShown()) { //TODO ramake!
-
+				if (!folderSpinner.isShown()) {
 					impSpinner.setVisibility(View.VISIBLE);
 					folderSpinner.setVisibility(View.VISIBLE);
 					rotator.clearAnimation();
@@ -162,11 +162,9 @@ public class Editor implements View.OnClickListener {
 			case R.id.IVAdd:
 				ContentValues data = getData();
 				if (data != null) {
-					db.open();
 					db.addDataIn(data, db.MAIN_TABLE);
 					assert fragmentList != null;
 						fragmentList.updateList();
-					db.close();
 					break;
 				}
 		}

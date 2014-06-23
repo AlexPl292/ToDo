@@ -22,15 +22,12 @@ public class DBTest extends AndroidTestCase {
 
 	public void tearDown() throws Exception {
 		super.tearDown();
-		mdb.close();
 		mdb.dropTestTable();
 		mdb = null;
 	}
 
 
 	public void testGetAllDataFrom() {
-		assertNull(mdb.getAllDataFrom(testTable));
-		mdb.open();
 		assertNull(mdb.getAllDataFrom(testFake));
 		Cursor res = mdb.getAllDataFrom(testTable);
 		assertNotNull(res);
@@ -51,20 +48,19 @@ public class DBTest extends AndroidTestCase {
 				assertEquals("Return fake cursor", res.getInt(res.getColumnIndex("row2")), ++i);
 			} while (res.moveToNext());
 		}
+		mdb.close();
 	}
 
 	public void testGetAllDataAboutTodo() {
-		assertTrue(mdb.getAllDataAboutTodo() == null);
-		mdb.open();
 		int i = mdb.getAllDataFrom(mdb.MAIN_TABLE).getCount();
 		int j = mdb.getAllDataAboutTodo().getCount();
 		assertTrue("Count of tasks not equals count of all",
 				i == j);
+		mdb.close();
 	}
 
 	public void testDelDataFrom() {
 		assertFalse(mdb.delDataFrom(0, testTable));
-		mdb.open();
 		assertFalse(mdb.delDataFrom(0, testTable));
 		assertFalse(mdb.delDataFrom(1, testTable));
 
@@ -91,8 +87,6 @@ public class DBTest extends AndroidTestCase {
 		ContentValues contentValues = new ContentValues(); //add data
 		contentValues.put("row1", 1);
 		contentValues.put("row2", 2);
-		assertFalse(mdb.addDataIn(contentValues, testTable) > 0);
-		mdb.open();
 		assertTrue(mdb.addDataIn(contentValues, testTable) > 0);
 		contentValues.clear();
 		contentValues.put("row1", 3);
@@ -106,8 +100,7 @@ public class DBTest extends AndroidTestCase {
 	}
 
 	public void testGetCountOfEntries() {
-		assertTrue(mdb.getCountOfEntries(testTable) == -1);
-		mdb.open();
+		assertTrue(mdb.getCountOfEntries(testTable) == 0);
 		addData();
 		int testCountOfEntries = 2;
 		assertTrue(mdb.getCountOfEntries(testTable) == testCountOfEntries);
@@ -116,8 +109,6 @@ public class DBTest extends AndroidTestCase {
 	}
 
 	public void testClearTable() {
-		assertTrue(mdb.clearTable(testTable) == -1);
-		mdb.open();
 		addData();
 		assertTrue(mdb.clearTable(testTable) == 2);
 		assertTrue(mdb.getAllDataFrom(testTable).getCount() == 0);
@@ -126,18 +117,10 @@ public class DBTest extends AndroidTestCase {
 	}
 
 	public void testIsEmpty() {
-		assertFalse(mdb.isEmpty(testTable));
-		mdb.open();
 		assertTrue(mdb.isEmpty(testTable));
 		addData();
 		assertFalse(mdb.isEmpty(testTable));
 		assertFalse(mdb.isEmpty(testFake));
-	}
-
-	public void testIsDBOpen() {
-		assertFalse(mdb.isDBOpen());
-		mdb.open();
-		assertTrue(mdb.isDBOpen());
 	}
 
 	private void addData() {

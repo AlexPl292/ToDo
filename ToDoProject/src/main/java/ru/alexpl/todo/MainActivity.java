@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 		fragmentList = (MainList) getFragmentManager()
 				.findFragmentById(R.id.fragmentList);
 		if (fragmentList != null) {
-			fragmentList.setDB(db); // TODO remake setDB with setBundle and getBundle
+			fragmentList.setDB(db);
 		}
 		editor = new Editor(this, db);
 	}
@@ -36,11 +36,10 @@ public class MainActivity extends Activity {
 	}
 
 	public void showAllData() {
-		db.open();
-		logCursor(db.getAllDataFrom(db.MAIN_TABLE));  //TODO remake for all tables
-		Log.d(LOG_TAG, "-------------------------------------");
-		logCursor(db.getAllDataFrom(db.FOLDER_TABLE));
-		db.close();
+		for (String table : db.TABLES) {
+			Log.d(LOG_TAG, "-------------------------------------");
+			logCursor(db.getAllDataFrom(table));
+		}
 	}
 
 	public void logCursor(Cursor c) {
