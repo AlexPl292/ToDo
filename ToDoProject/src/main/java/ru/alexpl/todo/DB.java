@@ -14,6 +14,8 @@ import java.util.List;
 
 public class DB {
 
+	public static DB instanse;
+
 	private final Context mCtx;
 	private final String LOG_TAG = "aDBLogs";
 
@@ -63,10 +65,16 @@ public class DB {
 	private DBHelper mDBHelper;
 	private SQLiteDatabase mDB;
 
-	public DB(Context ctx) {
+	private DB(Context ctx) {
 		mCtx = ctx;
 	}
 
+	public static synchronized DB getInstanse(Context ctx) {
+		if (instanse == null) {
+			instanse = new DB(ctx);
+		}
+		return instanse;
+	}
 
 	public void open() {
 		if (mDB != null) {

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToDo.iml" filepath="$PROJECT_DIR$/ToDo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ToDoProject.iml" filepath="$PROJECT_DIR$/ToDoProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ToDoProject/ToDoProject-ToDoProject.iml" filepath="$PROJECT_DIR$/ToDoProject/ToDoProject-ToDoProject.iml" />
     </modules>
   </component>
 </project>

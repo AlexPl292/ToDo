@@ -19,8 +19,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.d(LOG_TAG, "start");
 		setContentView(R.layout.main);
-		db = new DB(this);
-
+		db = DB.getInstanse(this);
 
 		fragmentList = (MainList) getFragmentManager()
 				.findFragmentById(R.id.fragmentList);
