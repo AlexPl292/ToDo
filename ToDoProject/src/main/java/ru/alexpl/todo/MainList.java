@@ -38,6 +38,7 @@ public class MainList extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		Log.d(LOG_TAG, "List created");
 
+		mDB = DB.instanse;
 		updateList();
 	}
 
@@ -53,7 +54,7 @@ public class MainList extends ListFragment {
 		adapterForList = new AdapterForList(getActivity(), cursor);
 
 		setListAdapter(adapterForList);
-		Log.d(LOG_TAG,"update and DB close");
+		Log.d(LOG_TAG, "update");
 
 
 		//---------------------- making of listener-----------------

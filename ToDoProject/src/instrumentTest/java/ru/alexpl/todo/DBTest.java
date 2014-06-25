@@ -16,14 +16,13 @@ public class DBTest extends AndroidTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), TEST_FILE_PREFIX);
-		mdb = new DB(context);
+		mdb = DB.getInstanse(context);
 		mdb.createTestTable();
 	}
 
 	public void tearDown() throws Exception {
 		super.tearDown();
 		mdb.dropTestTable();
-		mdb = null;
 	}
 
 
@@ -48,7 +47,6 @@ public class DBTest extends AndroidTestCase {
 				assertEquals("Return fake cursor", res.getInt(res.getColumnIndex("row2")), ++i);
 			} while (res.moveToNext());
 		}
-		mdb.close();
 	}
 
 	public void testGetAllDataAboutTodo() {
@@ -56,7 +54,6 @@ public class DBTest extends AndroidTestCase {
 		int j = mdb.getAllDataAboutTodo().getCount();
 		assertTrue("Count of tasks not equals count of all",
 				i == j);
-		mdb.close();
 	}
 
 	public void testDelDataFrom() {

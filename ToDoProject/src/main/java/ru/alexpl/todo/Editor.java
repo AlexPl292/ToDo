@@ -10,23 +10,26 @@ import android.view.View;
 import android.widget.*;
 
 public class Editor implements View.OnClickListener {
+	public static Editor instanse;
 
-	Context context;
-	EditText editText;
-	Activity act;
-	DB db;
-	int folderForDB;
-	int importanceForDB;
-	Spinner folderSpinner;
-	Spinner impSpinner;
-	ImageView rotator;
-	ImageView adder;
-	MainList fragmentList;
+	private Context context;
+	private EditText editText;
+	private Activity act;
+	private DB db;
+	private int folderForDB;
+	private int importanceForDB;
+	private Spinner folderSpinner;
+	private Spinner impSpinner;
+	private ImageView rotator;
+	private ImageView adder;
+	private MainList fragmentList;
 	private final int importanceDefault = 1;
 	private final int folderDefault = 0;
 
-	public Editor(Context ctx, DB database) {
-		db = database;
+	private TextView testV;
+
+	private Editor(Context ctx) {
+		db = DB.instanse;
 		context = ctx;
 		act = (Activity) ctx;
 
@@ -43,7 +46,16 @@ public class Editor implements View.OnClickListener {
 		fragmentList = (MainList) act.getFragmentManager()
 				                          .findFragmentById(R.id.fragmentList);
 
+		testV = (TextView) act.findViewById(R.id.testV);
+		testV.setVisibility(View.GONE);
+
 		makingEditor();
+	}
+
+	public static Editor getInstanse(Context ctx) {
+		if (instanse == null)
+			instanse = new Editor(ctx);
+		return instanse;
 	}
 
 	public void makingEditor() {
@@ -124,7 +136,7 @@ public class Editor implements View.OnClickListener {
 
 	public ContentValues getData() {
 		String s = editText.getText().toString();
-		if (s.isEmpty()) return null;
+		if (s.isEmpty() || s == null) return null;
 
 		if (!folderSpinner.isShown() && !impSpinner.isShown()) {
 			importanceForDB = importanceDefault;
@@ -150,11 +162,13 @@ public class Editor implements View.OnClickListener {
 				if (!folderSpinner.isShown()) {
 					impSpinner.setVisibility(View.VISIBLE);
 					folderSpinner.setVisibility(View.VISIBLE);
+					testV.setVisibility(View.VISIBLE);
 					rotator.clearAnimation();
 					rotator.animate().setDuration(200).rotation(180);
 				} else {
 					impSpinner.setVisibility(View.GONE);
 					folderSpinner.setVisibility(View.GONE);
+					testV.setVisibility(View.GONE);
 					rotator.clearAnimation();
 					rotator.animate().setDuration(200).rotation(0);
 				}

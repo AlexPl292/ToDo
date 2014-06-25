@@ -67,6 +67,7 @@ public class DB {
 
 	private DB(Context ctx) {
 		mCtx = ctx;
+		open();
 	}
 
 	public static synchronized DB getInstanse(Context ctx) {
@@ -94,19 +95,15 @@ public class DB {
 	}
 
 	public void createTestTable() {
-		open();
 		String query = "CREATE TABLE test (_id INTEGER PRIMARY KEY AUTOINCREMENT, row1 int, row2 int);";
 		mDB.execSQL(query);
 		TABLES.add("test");
-		close();
 	}
 
 	public void dropTestTable() {
-		open();
 		String query = "DROP TABLE test";
 		mDB.execSQL(query);
 		TABLES.remove("test");
-		close();
 	}
 
 	/**
@@ -115,14 +112,12 @@ public class DB {
 	public Cursor getAllDataFrom(String name) {
 
 		if (!isTableExist(name) || name == null) return null;
-		open();
 
 		Cursor c = mDB.query(name, null, null, null, null, null, null);
 		Log.d(LOG_TAG, "getAllDataFrom: " + name);
 
 		return c;
 	}
-
 
 	/**
 	 * @return cursor with all data folder_table inner MAIN_TABLE
@@ -134,9 +129,6 @@ public class DB {
 				" from " + MAIN_TABLE + " as TODO" +
 				" inner join " + FOLDER_TABLE + " as FOLDER" +
 				" on TODO." + MAIN_COLUMN_FOLDER + " = FOLDER." + FOLDERS_COLUMN_ID;
-
-		open();
-
 		return mDB.rawQuery(SQLQuery, null);
 	}
 
@@ -144,9 +136,7 @@ public class DB {
 
 		if (!isTableExist(name) || id < 0) return false;
 
-		open();
 		Integer del = mDB.delete(name, "_id =" + Integer.toString(id), null);
-		close();
 		if (del > 0) {
 			Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
 			return true;
@@ -158,14 +148,11 @@ public class DB {
 
 	public long addDataIn(ContentValues dataForDB, String name) {
 		if (!isTableExist(name) || dataForDB == null || name == null) return -1;
-		open();
 		long insert = mDB.insert(name, null, dataForDB);
-		close();
 		return insert;
 	}
 
 	public int getCountOfEntries(String name) {
-		open();
 		if (name == null) return -1;
 
 		String name_columns = "count";
@@ -177,21 +164,16 @@ public class DB {
 				count = c.getInt(c.getColumnIndex(name_columns));
 			}
 		}
-		close();
 		return count;
 	}
 
-
 	public int clearTable(String name) {
-
 		if (name == null || !isTableExist(name)) return -1;
-		open();
 
 		int del_count = mDB.delete(name, null, null);  //clear table
 		mDB.delete("SQLite_sequence", "name = '" + name + "'", null);  //delete ids
 		Log.d(LOG_TAG, "DB clear: " + name);
 
-		close();
 		return del_count;
 	}
 
@@ -200,10 +182,9 @@ public class DB {
 			Log.e(LOG_TAG, "Problem in isEmpty(..)");
 			return false;
 		}
-		open();
 		int count = getCountOfEntries(nameOfTable);
 		if (count == -1) Log.e(LOG_TAG, "Problem with '" + nameOfTable + "' in 'isEmpty(..)");
-		close();
+
 		return count == 0;
 	}
 
@@ -213,6 +194,16 @@ public class DB {
 		}
 		Log.e(LOG_TAG, "Database with name '" + name + "' is not exist");
 		return false;
+	}
+
+	public void finalize() throws Throwable {
+		if (mDBHelper != null)
+			mDBHelper.close();
+		if (mDB != null)
+			mDB.close();
+		if (instanse != null)
+			instanse = null;
+		super.finalize();
 	}
 
 	/**
