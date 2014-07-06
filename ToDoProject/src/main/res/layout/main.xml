@@ -7,8 +7,7 @@
 	android:orientation="vertical"
 	android:fitsSystemWindows="true"
 	android:clipToPadding="false"
-	android:background="@color/backg"
-	>
+	android:background="@color/backg">
 
 	<RelativeLayout
 		android:layout_width="wrap_content"
@@ -63,13 +62,18 @@
 
 	</LinearLayout>
 
-	<fragment
+	<!--<fragment
 		android:id="@+id/fragmentList"
 		android:animateLayoutChanges="true"
-		android:name="ru.alexpl.todo.MainList"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_margin="@dimen/margin_edit"
-		tools:layout="@layout/simple_list_item_1" />
+		tools:layout="@layout/simple_list_item_1" />-->
+	<ListView
+		android:id="@+id/todoList"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/margin_edit"
+		android:animateLayoutChanges="true" />
 
 </LinearLayout>

@@ -8,6 +8,21 @@
 	android:background="@color/card"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/TVListText"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/TVListFolder"
+		android:layout_marginRight="@dimen/folder_margin_right"
+		android:layout_alignParentBottom="true"
+		android:layout_toLeftOf="@+id/IVEditor" />
+
 	<ImageView
 		android:layout_height="fill_parent"
 		android:layout_width="wrap_content"
@@ -16,21 +31,8 @@
 		android:layout_gravity="right"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentRight="true"
-		android:contentDescription="@string/editor_circle"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/TVListFolder"
-		android:layout_marginRight="@dimen/folder_margin_right"
-		android:layout_alignParentBottom="true"
-		android:layout_toLeftOf="@+id/IVEditor"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/TVListText"
-		android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"/>
+		android:scaleX="0.5"
+		android:scaleY="0.5"
+		android:contentDescription="@string/editor_circle" />
 
 </RelativeLayout>

@@ -14,16 +14,16 @@ import java.util.List;
 
 public class DB {
 
-	public static DB instanse;
+	public static DB instance;
 
 	private final Context mCtx;
 	private final String LOG_TAG = "aDBLogs";
 
 	//------------ Database -------------------
-	public final String DB_NAME = "myProjectDB";
-	public final int DB_VERSION = 1;
+	private final String DB_NAME = "myProjectDB";
+	private final int DB_VERSION = 1;
 
-	public final List<String> TABLES = new ArrayList<String>() {{
+	private final List<String> TABLES = new ArrayList<String>() {{
 		add(MAIN_TABLE);
 		add(FOLDER_TABLE);
 	}}; // all existing tables
@@ -37,7 +37,7 @@ public class DB {
 	//public final String MAIN_COLUMN_DATE = "date";
 
 	//------------ query for create main table -----------
-	public final String DB_MAIN_CREATE = "CREATE TABLE " +
+	private final String DB_MAIN_CREATE = "CREATE TABLE " +
 			MAIN_TABLE + "(" +
 			MAIN_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			MAIN_COLUMN_TODO + " TEXT NOT NULL, " +
@@ -71,10 +71,10 @@ public class DB {
 	}
 
 	public static synchronized DB getInstanse(Context ctx) {
-		if (instanse == null) {
-			instanse = new DB(ctx);
+		if (instance == null) {
+			instance = new DB(ctx);
 		}
-		return instanse;
+		return instance;
 	}
 
 	public void open() {
@@ -137,11 +137,12 @@ public class DB {
 		if (!isTableExist(name) || id < 0) return false;
 
 		Integer del = mDB.delete(name, "_id =" + Integer.toString(id), null);
+		if (getCountOfEntries(name) == 0) clearTable(name);
 		if (del > 0) {
 			Log.d(LOG_TAG, "Deleted from " + name + " id= " + id);
 			return true;
 		} else {
-			Log.d(LOG_TAG, "error in deleting");
+			Log.e(LOG_TAG, "error in deleting");
 			return false;
 		}
 	}
@@ -196,13 +197,14 @@ public class DB {
 		return false;
 	}
 
+	@Override
 	public void finalize() throws Throwable {
 		if (mDBHelper != null)
 			mDBHelper.close();
 		if (mDB != null)
 			mDB.close();
-		if (instanse != null)
-			instanse = null;
+		if (instance != null)
+			instance = null;
 		super.finalize();
 	}
 
