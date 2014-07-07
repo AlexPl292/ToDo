@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 	}
 
-	/**Class extends AsyncTask for connect to DataBase and create an Editor*/
+	/**
+	 * Class extends AsyncTask for connect to DataBase and create an Editor
+	 */
 	private class Connector extends AsyncTask<Context, Void, Void> {
 
 		@Override
@@ -52,7 +54,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/** CursorLoader for SimpleCursorLoader*/
+	/**
+	 * CursorLoader for SimpleCursorLoader
+	 */
 	static class MyCursorLoader extends CursorLoader {
 
 		DB db;
@@ -68,7 +72,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/** Class for making spinners, buttons etc.*/
+	/**
+	 * Class for making spinners, buttons etc.
+	 */
 	private class Editor implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 		private static final String LOG_TAG = "aEditorLogs";
 
@@ -88,7 +94,6 @@ public class MainActivity extends Activity {
 		private Editor(Context ctx) {
 			act = (Activity) ctx;
 			db = DB.getInstanse(act);
-			db.clearTable(db.MAIN_TABLE);
 
 			folderSpinner = (Spinner) act.findViewById(R.id.folderSpinner);
 			impSpinner = (Spinner) act.findViewById(R.id.impSpinner);
@@ -103,14 +108,14 @@ public class MainActivity extends Activity {
 			//--------------------- making list --------------------
 			list = (ListView) findViewById(R.id.todoList);
 
-			String[] from = new String[] {db.MAIN_COLUMN_TODO, db.FOLDERS_COLUMN_NAME_OF_FOLDER, db.MAIN_COLUMN_IMP};
-			int[] to = new int[] {R.id.TVListText, R.id.TVListFolder, R.id.IVEditor};
+			String[] from = new String[]{db.MAIN_COLUMN_TODO, db.FOLDERS_COLUMN_NAME_OF_FOLDER, db.MAIN_COLUMN_IMP};
+			int[] to = new int[]{R.id.TVListText, R.id.TVListFolder, R.id.IVEditor};
 
 			scAdapter = new SimpleCursorAdapter(act, R.layout.list, null, from, to, 0) {
 				@Override
 				public void setViewImage(ImageView v, String value) {
 					int imageId;
-					switch (Integer.parseInt(value)){
+					switch (Integer.parseInt(value)) {
 						case 0:
 							imageId = R.drawable.item_edit_null;
 							break;
@@ -167,27 +172,28 @@ public class MainActivity extends Activity {
 
 		private void setListner() {
 			OnSwipeTouchListener touchListener =
-				new OnSwipeTouchListener(
-					list,
-					new OnSwipeTouchListener.DismissCallbacks() {
-						@Override
-						public boolean canDismiss(int position) {
-							return true;
-						}
+					new OnSwipeTouchListener(
+							list,
+							new OnSwipeTouchListener.DismissCallbacks() {
+								@Override
+								public boolean canDismiss(int position) {
+									return true;
+								}
 
-						@Override
-						synchronized public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-							Cursor cursor = (Cursor) listView.getItemAtPosition(reverseSortedPositions[0]);
-							int id =
-									Integer.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(db.MAIN_COLUMN_ID)));
+								@Override
+								synchronized public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+									Cursor cursor = (Cursor) listView.getItemAtPosition(reverseSortedPositions[0]);
+									int id =
+											Integer.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(db.MAIN_COLUMN_ID)));
 
-							Cursor c = scAdapter.getCursor();
-							CursorWithDelete cwd = new CursorWithDelete(c, reverseSortedPositions[0]);
-							scAdapter.swapCursor(cwd);
+									Cursor c = scAdapter.getCursor();
+									CursorWithDelete cwd = new CursorWithDelete(c, reverseSortedPositions[0]);
+									scAdapter.swapCursor(cwd);
 
-							db.delDataFrom(id, db.MAIN_TABLE);
-						}
-					});
+									db.delDataFrom(id, db.MAIN_TABLE);
+								}
+							}
+					);
 			assert list != null;
 			list.setOnTouchListener(touchListener);
 			list.setOnScrollListener(touchListener.makeScrollListener());
@@ -232,7 +238,8 @@ public class MainActivity extends Activity {
 		}
 
 		@Override
-		public void onLoaderReset(Loader<Cursor> loader) {}
+		public void onLoaderReset(Loader<Cursor> loader) {
+		}
 
 		private class MakingEditor extends AsyncTask<View.OnClickListener, Void, Void> {
 
