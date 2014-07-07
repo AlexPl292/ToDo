@@ -41,7 +41,8 @@ public class MainActivity extends Activity {
 		super.onDestroy();
 	}
 
-	class Connector extends AsyncTask<Context, Void, Void> {
+	/**Class extends AsyncTask for connect to DataBase and create an Editor*/
+	private class Connector extends AsyncTask<Context, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Context... params) {
@@ -51,6 +52,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/** CursorLoader for SimpleCursorLoader*/
 	static class MyCursorLoader extends CursorLoader {
 
 		DB db;
@@ -66,7 +68,8 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	class Editor implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+	/** Class for making spinners, buttons etc.*/
+	private class Editor implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 		private static final String LOG_TAG = "aEditorLogs";
 
 		private EditText editText;
@@ -231,7 +234,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onLoaderReset(Loader<Cursor> loader) {}
 
-		class MakingEditor extends AsyncTask<View.OnClickListener, Void, Void> {
+		private class MakingEditor extends AsyncTask<View.OnClickListener, Void, Void> {
 
 			@Override
 			protected Void doInBackground(View.OnClickListener... params) {
@@ -256,7 +259,7 @@ public class MainActivity extends Activity {
 							i++;
 						} while (c.moveToNext());
 					}
-				} else Log.d("DBLogs", "DB of myFolder is empty");
+				} else Log.e("aDBLogs", "DB of myFolder is empty");
 
 				ArrayAdapter<String> adapterForFolderSpinner =
 						new ArrayAdapter<String>(act, android.R.layout.simple_spinner_item, dataForSpinner);
@@ -307,7 +310,7 @@ public class MainActivity extends Activity {
 			}
 		}
 
-		class CursorWithDelete extends AbstractCursor {
+		private class CursorWithDelete extends AbstractCursor {
 
 			private Cursor cursor;
 			private int posToIgnore;

@@ -53,6 +53,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	public void testOfTest() {
 		//onData(Matchers.<Object>allOf(withId(R.id.LLList), hasSibling(withId(R.id.TVListText)))).perform(swipeRight());
 		//onData(hasToString(startsWith("h"))).perform(swipeRight());
-		onData(instanceOf(Cursor.class)).perform(swipeRight());
+		//onData(instanceOf(Cursor.class)).perform(swipeRight());
 	}
 }
