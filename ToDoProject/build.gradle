@@ -34,5 +34,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    instrumentTestCompile files('libs/espresso-1.1-bundled.jar')
+    androidTestCompile files('libs/espresso-1.1-bundled.jar')
 }
