@@ -11,7 +11,6 @@ import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,6 +26,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		new Connector().execute(this);
+		new Editor(this);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 		@Override
 		protected Void doInBackground(Context... params) {
 			DB.getInstanse(params[0]);
-			new Editor(params[0]);
+			//new Editor(params[0]);
 			return null;
 		}
 	}
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
 			};
 			list.setAdapter(scAdapter);
 
-			Looper.prepare();
+//			Looper.prepare();
 			getLoaderManager().initLoader(0, null, this);
 			setListner();
 
