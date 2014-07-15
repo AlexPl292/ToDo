@@ -1,13 +1,15 @@
 package ru.alexpl.todo;
 
+import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
 
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.*;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.not;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -51,6 +53,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	public void testOfTest() {
 		//onData(Matchers.<Object>allOf(withId(R.id.LLList), hasSibling(withId(R.id.TVListText)))).perform(swipeRight());
 		//onData(hasToString(startsWith("h"))).perform(swipeRight());
-		//onData(instanceOf(Cursor.class)).perform(swipeRight());
+		onData(instanceOf(Cursor.class)).perform(swipeRight());
 	}
 }

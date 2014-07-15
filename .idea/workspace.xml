@@ -36,27 +36,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: ru.alexpl.todo" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5c501eb-f3f9-48ab-94be-79ea75a02a44" name="Default" comment="Rename instrumentalTest to androidTest.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/DBTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\codeStyleSettings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\copyright\profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\dataSources.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\gradle.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\inspectionProfiles\Project_Default.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\inspectionProfiles\profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\libraries\espresso_1_1_bundled.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\scopes\scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programs\Android\Android apps\Projects\ToDo\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ToDoProject/src/main/java/ru/alexpl/todo/MainActivity.java" afterPath="$PROJECT_DIR$/ToDoProject/src/main/java/ru/alexpl/todo/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ToDo.iml" afterPath="$PROJECT_DIR$/ToDo.iml" />
+    <list default="true" id="c5c501eb-f3f9-48ab-94be-79ea75a02a44" name="Default" comment="All work. New Editor isn't in AsycTask.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java" afterPath="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ToDo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,6 +109,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="MainActivityTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8" vertical-offset="255" max-vertical-offset="867">
+              <caret line="57" column="63" selection-start-line="57" selection-start-column="63" selection-end-line="57" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ToDo.iml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ToDo.iml">
           <provider selected="true" editor-type-id="text-editor">
@@ -157,31 +149,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ToDoProject/src/main/AndroidManifest.xml">
+      <file leaf-file-name="DBTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/DBTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivityTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29411766" vertical-offset="165" max-vertical-offset="867">
-              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DB.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ToDoProject/src/main/java/ru/alexpl/todo/DB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2890" max-vertical-offset="4029">
-              <caret line="170" column="22" selection-start-line="170" selection-start-column="22" selection-end-line="170" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2312">
+              <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -198,6 +170,11 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="SYNC_SETTING" value="DONT" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="tasksExpandState">
@@ -960,8 +937,8 @@
         <option value="$PROJECT_DIR$/ToDoProject/src/main/java/ru/alexpl/todo/OnSwipeTouchListener.java" />
         <option value="$PROJECT_DIR$/ToDoProject/src/instrumentTest/java/ru/alexpl/todo/MainActivityTest.java" />
         <option value="$PROJECT_DIR$/ToDoProject/build.gradle" />
-        <option value="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java" />
         <option value="$PROJECT_DIR$/ToDoProject/src/main/java/ru/alexpl/todo/MainActivity.java" />
+        <option value="$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java" />
       </list>
     </option>
   </component>
@@ -1573,7 +1550,7 @@
       <workItem from="1405367486445" duration="379000" />
       <workItem from="1405368083127" duration="3119000" />
       <workItem from="1405408353486" duration="1127000" />
-      <workItem from="1405436913055" duration="2246000" />
+      <workItem from="1405436913055" duration="2695000" />
     </task>
     <task id="LOCAL-00001" summary="From IJ">
       <created>1403127229955</created>
@@ -1615,11 +1592,15 @@
       <created>1405371086375</created>
       <updated>1405371086375</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="All work. New Editor isn't in AsycTask.">
+      <created>1405442141151</created>
+      <updated>1405442141151</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182558000" />
+    <option name="totallyTimeSpent" value="183007000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1646,7 +1627,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1704,7 +1685,8 @@
     <MESSAGE value="Deleted a lot of classes (make as inner class), make tests, replase ListFragment with ListView." />
     <MESSAGE value="Don't see previous changes. I forgot delete &quot;db.clearTable(..)&quot;" />
     <MESSAGE value="Rename instrumentalTest to androidTest." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename instrumentalTest to androidTest." />
+    <MESSAGE value="All work. New Editor isn't in AsycTask." />
+    <option name="LAST_COMMIT_MESSAGE" value="All work. New Editor isn't in AsycTask." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2017,13 +1999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/DBTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71428573" vertical-offset="238" max-vertical-offset="2363">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ToDoProject/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
@@ -2091,10 +2066,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/DBTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2312">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ToDoProject/src/androidTest/java/ru/alexpl/todo/MainActivityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29411766" vertical-offset="165" max-vertical-offset="867">
-          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.8" vertical-offset="255" max-vertical-offset="867">
+          <caret line="57" column="63" selection-start-line="57" selection-start-column="63" selection-end-line="57" selection-end-column="63" />
           <folding />
         </state>
       </provider>
