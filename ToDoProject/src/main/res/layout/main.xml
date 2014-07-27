@@ -62,18 +62,12 @@
 
 	</LinearLayout>
 
-	<!--<fragment
-		android:id="@+id/fragmentList"
-		android:animateLayoutChanges="true"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="@dimen/margin_edit"
-		tools:layout="@layout/simple_list_item_1" />-->
 	<ListView
 		android:id="@+id/todoList"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_margin="@dimen/margin_edit"
-		android:animateLayoutChanges="true" />
+		android:animateLayoutChanges="true"
+		android:contentDescription="listView"/>
 
 </LinearLayout>
